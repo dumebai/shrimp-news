@@ -90,6 +90,26 @@
     .card h4{ margin:0 0 6px; font-size:18px; line-height:1.2 }
     .card p{ margin:0; color:var(--muted); font-size:14px; line-height:1.5 }
 
+    /* === REELS / VIDEO GRID === */
+    .reels{ padding: clamp(20px, 6vw, 70px); }
+    .reels .hrow{ display:flex; align-items:baseline; gap:12px; margin-bottom:12px }
+    .reels h2{ font-family:"Bebas Neue", Impact, sans-serif; font-size: clamp(26px, 6vw, 48px); margin:0 }
+    .vgrid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:12px }
+    @media (max-width: 960px){ .vgrid{ grid-template-columns: 1fr 1fr } }
+    @media (max-width: 620px){ .vgrid{ grid-template-columns: 1fr } }
+    .vcard{ border:3px solid #000; background:#fff; box-shadow: 6px 6px 0 #000; overflow:hidden; border-radius:6px; }
+    .vwrap{ position:relative; aspect-ratio: 9/16; background:#000 }
+    .vwrap video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .vbadge{ position:absolute; left:8px; top:8px; background:var(--banner); color:#fff; border:2px solid #000; border-radius:4px; padding:4px 8px; font-weight:900 }
+    .vcap{ padding:10px 12px; font-weight:800 }
+
+    /* LIGHTBOX */
+    .lightbox{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,.8); z-index:99 }
+    .lightbox.open{ display:flex }
+    .lightbox-inner{ position:relative; max-width:min(92vw, 420px); width:100% }
+    .lightbox video{ width:100%; height:auto; display:block; background:#000 }
+    .xbtn{ position:absolute; top:-14px; right:-14px; background:#fff; border:3px solid #000; border-radius:999px; width:40px; height:40px; display:grid; place-items:center; box-shadow: 6px 6px 0 #000; font-weight:900; cursor:pointer }
+
     footer{ padding:40px; color:#333; text-align:center; font-size:12px }
 
     /* shrimp watermark */
@@ -106,6 +126,20 @@
   <header class="mast">
     <div class="mast-inner">
       <a class="brand" href="#">
+        <!-- shrimp logo -->
+        <svg class="logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffb08a"/>
+              <stop offset="1" stop-color="#ff6a00"/>
+            </linearGradient>
+          </defs>
+          <g fill="url(#g)" stroke="#000" stroke-width="1">
+            <path d="M48 18c-6-5-14-7-22-5-5 1-8 5-9 8-2 6 2 12 8 13 5 1 10-2 11-7a7 7 0 0 0-8-8c-3 1-5 3-5 6 0 4 4 7 8 6"/>
+            <path d="M45 18c6 0 11 5 11 11s-5 11-11 11h-6c-3 0-6 3-6 6 0 2 2 4 4 4h5"/>
+            <circle cx="41" cy="20.5" r="2.2" fill="#000"/>
+          </g>
+        </svg>
         <div class="wordmark">SHRIMP NEWS</div>
       </a>
       <div class="edition">No. 001 · Today · 100% Verified 🦐</div>
@@ -129,8 +163,8 @@
         <h1>$SHRIMP <span style="color:var(--accent)">NOW LIVE ON</span> PUMP.FUN</h1>
         <p style="font-size:18px; max-width:52ch">Witnesses claim it waved a tiny press badge and shouted "no comment". Authorities describe the vibe as "crunchy but respectful".</p>
         <div class="cta">
-          <a class="btn" href="#latest">Buy $SHRIMP</a>
-          <a class="btn alt" href="https://t.me/shrimpnews">Join TG</a>
+          <a class="btn" href="#reels">Watch Videos</a>
+          <a class="btn alt" href="https://t.me/shrimpnews" target="_blank" rel="noreferrer noopener">Join TG</a>
         </div>
         <!-- watermark shrimp -->
         <svg class="watermark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><use href="#shrimp-symbol"/></svg>
@@ -148,8 +182,8 @@
         <div class="panel">
           <h3>Socials</h3>
           <p style="margin:0 0 10px">Zero fluff. Maximum shrimp.</p><br>
-          <a class="btn alt" href="https://x.com/shrimpnewsxyz">Twitter</a>
-          <br><br> <a class="btn alt" href="https://t.me/shrimpnews">Telegram</a>
+          <a class="btn alt" href="https://x.com/shrimpnewsxyz" target="_blank" rel="noreferrer noopener">Twitter</a>
+          <br><br> <a class="btn alt" href="https://t.me/shrimpnews" target="_blank" rel="noreferrer noopener">Telegram</a>
         </div>
       </aside>
     </div>
@@ -181,6 +215,50 @@
       </article>
     </section>
   </main>
+
+  <!-- === REELS / VIDEO GRID SECTION === -->
+  <section class="reels" id="reels">
+    <div class="hrow">
+      <h2>🦐 Reels</h2>
+      <span class="strap">Fresh from the feed</span>
+    </div>
+
+    <div class="vgrid">
+      <!-- Sample: replace src with your files under /videos/ and add more figures as needed -->
+      <figure class="vcard">
+        <div class="vwrap">
+          <span class="vbadge">NEW</span>
+          <video 
+            src="/videos/clip1.mp4" 
+            playsinline muted preload="metadata" 
+            poster="/videos/clip1.jpg"></video>
+        </div>
+        <figcaption class="vcap">Gigashrimp press conference</figcaption>
+      </figure>
+
+      <figure class="vcard">
+        <div class="vwrap">
+          <video src="/videos/clip2.mp4" playsinline muted preload="metadata" poster="/videos/clip2.jpg"></video>
+        </div>
+        <figcaption class="vcap">Markets in a shell</figcaption>
+      </figure>
+
+      <figure class="vcard">
+        <div class="vwrap">
+          <video src="/videos/clip3.mp4" playsinline muted preload="metadata" poster="/videos/clip3.jpg"></video>
+        </div>
+        <figcaption class="vcap">100% chance of drip</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX for sound-on playback -->
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Video player">
+    <div class="lightbox-inner">
+      <button class="xbtn" id="xbtn" aria-label="Close">✕</button>
+      <video id="bigvid" controls autoplay></video>
+    </div>
+  </div>
 
   <footer>
     © <span id="year"></span> Shrimp News — No actual shrimp were harmed. Built for laughs.
@@ -232,6 +310,37 @@
     window.addEventListener('error', (e)=>{
       if(String(e.filename||'').includes('chrome-extension')){ e.preventDefault(); return false; }
     }, true);
+
+    // === REELS logic ===
+    const lightbox = document.getElementById('lightbox');
+    const big = document.getElementById('bigvid');
+    const xbtn = document.getElementById('xbtn');
+
+    // hover autoplay (desktop) and tap-to-play (mobile)
+    document.querySelectorAll('.vwrap video').forEach(v => {
+      // speed up preview a bit for meme energy
+      v.playbackRate = 1.15;
+      v.addEventListener('mouseenter', () => { v.muted = true; v.play().catch(()=>{}); });
+      v.addEventListener('mouseleave', () => { v.pause(); });
+      v.addEventListener('touchstart', () => { v.muted = true; v.play().catch(()=>{}); }, {passive:true});
+      v.addEventListener('click', () => {
+        // open lightbox with sound-on
+        big.src = v.currentSrc || v.src;
+        big.currentTime = v.currentTime || 0;
+        big.muted = false; big.playbackRate = 1.0; big.play().catch(()=>{});
+        lightbox.classList.add('open');
+      });
+    });
+
+    function closeLB(){
+      lightbox.classList.remove('open');
+      big.pause();
+      big.removeAttribute('src');
+      big.load();
+    }
+    xbtn.addEventListener('click', closeLB);
+    lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLB(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLB(); });
   </script>
 </body>
 </html>
